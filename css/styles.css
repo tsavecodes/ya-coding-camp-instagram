@@ -7,6 +7,10 @@
 
 /* Global */
 
+body,
+html {
+  overflow-y: hidden;
+}
 body {
   font-family: "Roboto", sans-serif;
   color: #262627;
@@ -147,6 +151,8 @@ input:focus {
   width: 68px;
   float: left;
   margin-right: 18px;
+  color: #262627;
+  text-decoration: none;
 }
 
 .story-list .story-list-spacer {
@@ -472,10 +478,38 @@ input:focus {
 
 /* Story */
 
+.stories {
+  position: relative;
+  width: 300%;
+  left: 0px;
+  box-sizing: border-box;
+  display: flex;
+
+  transition: left 0.75s ease-in-out;
+}
+
+.stories .left-button {
+  position: fixed;
+  width: 30vw;
+  height: 70vh;
+  top: 15vh;
+  left: 0;
+}
+
+.stories .right-button {
+  position: fixed;
+
+  width: 30vw;
+  height: 70vh;
+  top: 15vh;
+  right: 0;
+}
+
 .story {
+  position: relative;
   background-color: #000;
   color: #fff;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   padding: 10px;
   box-sizing: border-box;
@@ -487,7 +521,6 @@ input:focus {
   height: 100%;
   left: 0;
   top: 0;
-  z-index: 1;
 }
 
 .story-content img {
@@ -499,7 +532,6 @@ input:focus {
 
 .story .story-top {
   position: relative;
-  z-index: 2;
 }
 
 .story .story-top .story-progress {
@@ -564,7 +596,7 @@ progress[value]::-webkit-progress-value {
 }
 
 .story-bottom {
-  position: fixed;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -573,7 +605,6 @@ progress[value]::-webkit-progress-value {
   bottom: 0;
   padding: 10px;
   box-sizing: border-box;
-  z-index: 2;
 }
 
 .story-bottom i.fa-camera {

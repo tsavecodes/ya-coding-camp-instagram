@@ -11,67 +11,250 @@
   </head>
   <body class="no-padding">
 
-    <div class="story">
+    <div class="stories" id="stories">
 
-      <div class="story-content">
-        <img src="https://placekitten.com/1080/1920" />
-      </div>
+      <div class="story">
 
-      <div class="story-top">
-        <progress id="progress" class="story-progress" max="100" value="0"></progress>
-        <div class="story-info">
-          <div class="avatar">
-            <img src="https://placekitten.com/150/150" />
-          </div>
-          <div class="text">
-            <div class="username">username</div>
-            <div class="time">11h</div>
-          </div>
-          <div class="close">
-            <i class="fa fa-times"></i>
+        <div class="story-content">
+          <img src="https://placekitten.com/1080/1920" />
+        </div>
+
+        <div class="story-top">
+          <progress class="story-progress" max="100" value="0"></progress>
+          <div class="story-info">
+            <div class="avatar">
+              <img src="https://placekitten.com/150/150" />
+            </div>
+            <div class="text">
+              <div class="username">username</div>
+              <div class="time">11h</div>
+            </div>
+            <div class="close">
+              <i class="fa fa-times"></i>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="story-bottom">
+        <div class="story-bottom">
+      
+          <i class="fa fa-camera"></i>
     
-        <i class="fa fa-camera"></i>
-  
-        <div class="message">
-          <input type="text" placeholder="Send message">
-          <i class="fa fa-ellipsis-h"></i>
+          <div class="message">
+            <input type="text" placeholder="Send message">
+            <i class="fa fa-ellipsis-h"></i>
+          </div>
+
+          <i class="fa fa-user-plus"></i>
+
+          <i class="fa fa-paper-plane"></i>
+
+          
+        </div>
+      </div>
+
+      <div class="story">
+
+        <div class="story-content">
+          <img src="https://placekitten.com/1080/1920" />
         </div>
 
-        <i class="fa fa-user-plus"></i>
+        <div class="story-top">
+          <progress class="story-progress" max="100" value="0"></progress>
+          <div class="story-info">
+            <div class="avatar">
+              <img src="https://placekitten.com/150/150" />
+            </div>
+            <div class="text">
+              <div class="username">username1</div>
+              <div class="time">12h</div>
+            </div>
+            <div class="close">
+              <i class="fa fa-times"></i>
+            </div>
+          </div>
+        </div>
 
-        <i class="fa fa-paper-plane"></i>
+        <div class="story-bottom">
+      
+          <i class="fa fa-camera"></i>
+    
+          <div class="message">
+            <input type="text" placeholder="Send message">
+            <i class="fa fa-ellipsis-h"></i>
+          </div>
 
-        
+          <i class="fa fa-user-plus"></i>
+
+          <i class="fa fa-paper-plane"></i>
+
+          
+        </div>
       </div>
+
+      <div class="story">
+
+        <div class="story-content">
+          <img src="https://placekitten.com/1080/1920" />
+        </div>
+
+        <div class="story-top">
+          <progress class="story-progress" max="100" value="0"></progress>
+          <div class="story-info">
+            <div class="avatar">
+              <img src="https://placekitten.com/150/150" />
+            </div>
+            <div class="text">
+              <div class="username">username1</div>
+              <div class="time">12h</div>
+            </div>
+            <div class="close">
+              <i class="fa fa-times"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-bottom">
+      
+          <i class="fa fa-camera"></i>
+    
+          <div class="message">
+            <input type="text" placeholder="Send message">
+            <i class="fa fa-ellipsis-h"></i>
+          </div>
+
+          <i class="fa fa-user-plus"></i>
+
+          <i class="fa fa-paper-plane"></i>
+
+          
+        </div>
+      </div>
+
+      <div class="left-button"></div>
+      <div class="right-button"></div>
+
     </div>
 
     <script>
 
       var progressElement = document.getElementById("progress")
+      var storiesElement = document.getElementById("stories")
+      var progressBarElements = document.querySelectorAll(".story-progress")
+      var leftButtonElement = document.querySelector('.left-button')
+      var rightButtonElement = document.querySelector('.right-button')
+      var closeButtonElements = document.querySelectorAll('.fa-times')
+      
+      var screenWidth = window.outerWidth;
+
+      var allStoryElements = document.querySelectorAll(".story")
+      var storyCount = allStoryElements.length
+
       var isComplete = false;
+      var currentStoryIndex = 0;
+      var currentLeft = 0;
+      var currentProgress = 0;
+      var interval = null;
+
+
+      leftButtonElement.addEventListener('click', function() {
+        showPrevStory()
+      });
+
+      rightButtonElement.addEventListener('click', function() {
+        showNextStory()
+      });
+
+      closeButtonElements.forEach(function(element){
+        element.addEventListener('click', function(){
+          window.location = "index.html"
+        })
+      })
+
+
+      function showNextStory() {
+        window.clearInterval(interval)
+        var delay = 750
+
+        currentProgress = 0
+        updateProgressUI();
+
+
+        currentStoryIndex += 1;
+        if(currentStoryIndex >= storyCount) {
+          currentStoryIndex = storyCount -1;
+          window.location = "index.html"
+        }
+
+        
+        isComplete = false;
+
+        currentLeft = - (screenWidth * currentStoryIndex)
+        storiesElement.style.left = currentLeft + 'px';
+
+
+        window.setTimeout(function() {
+          initInterval();
+        }, delay);
+
+      }
+
+      function showPrevStory() {
+        window.clearInterval(interval)
+        var delay = 750
+
+        currentProgress = 0
+        updateProgressUI();
+
+        currentStoryIndex -= 1;
+        if(currentStoryIndex < 0) {
+          currentStoryIndex = 0;
+          delay = 0
+        }
+
+        isComplete = false;
+
+        currentLeft = - (screenWidth * currentStoryIndex)
+        storiesElement.style.left = currentLeft + 'px';
+
+
+        window.setTimeout(function() {
+          initInterval();
+        }, delay);
+
+      }
 
       function updateProgress() {
         if(isComplete){
           return;
         }
 
-        progressElement.value = progressElement.value + 1;
+        currentProgress = currentProgress + 1;
 
-        if(progressElement.value >= 100){
+        if(currentProgress >= 100) {
           isComplete = true;
-          console.log("Complete")
+          showNextStory()
         }
-      }
-      
 
-      window.setInterval(function() {
-        updateProgress();
-      }, 120)
+        updateProgressUI();
+      }
+
+      function updateProgressUI() {
+        progressBarElements.forEach(function(element) {
+          element.value = currentProgress
+        })
+      }
+
+      function initInterval() {
+        if(interval){
+          window.clearInterval(interval)
+        }
+        interval = window.setInterval(function() {
+          updateProgress();
+        }, 20)
+      }
+
+      initInterval()
+    
 
 
     </script>
