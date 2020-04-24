@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Instagram Clone">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instagram Clone</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body class="no-padding">
+
+    <div class="story">
+
+      <div class="story-content">
+        <img src="https://placekitten.com/1080/1920" />
+      </div>
+
+      <div class="story-top">
+        <progress id="progress" class="story-progress" max="100" value="0"></progress>
+        <div class="story-info">
+          <div class="avatar">
+            <img src="https://placekitten.com/150/150" />
+          </div>
+          <div class="text">
+            <div class="username">username</div>
+            <div class="time">11h</div>
+          </div>
+          <div class="close">
+            <i class="fa fa-times"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-bottom">
+    
+        <i class="fa fa-camera"></i>
+  
+        <div class="message">
+          <input type="text" placeholder="Send message">
+          <i class="fa fa-ellipsis-h"></i>
+        </div>
+
+        <i class="fa fa-user-plus"></i>
+
+        <i class="fa fa-paper-plane"></i>
+
+        
+      </div>
+    </div>
+
+    <script>
+
+      var progressElement = document.getElementById("progress")
+      var isComplete = false;
+
+      function updateProgress() {
+        if(isComplete){
+          return;
+        }
+
+        progressElement.value = progressElement.value + 1;
+
+        if(progressElement.value >= 100){
+          isComplete = true;
+          console.log("Complete")
+        }
+      }
+      
+
+      window.setInterval(function() {
+        updateProgress();
+      }, 120)
+
+
+    </script>
+
+  </body>
+</html>
